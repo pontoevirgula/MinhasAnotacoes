@@ -1,4 +1,4 @@
-package com.chsltutorials.minhasanotacoes
+package com.chsltutorials.minhasanotacoes.ui
 
 
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment.findNavController
+import com.chsltutorials.minhasanotacoes.R
 import kotlinx.android.synthetic.main.fragment_home.*
 
 

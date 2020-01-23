@@ -1,9 +1,10 @@
-package com.chsltutorials.minhasanotacoes
+package com.chsltutorials.minhasanotacoes.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import com.chsltutorials.minhasanotacoes.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,7 +12,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val navController = Navigation.findNavController(this,R.id.fragment)
+        val navController = Navigation.findNavController(this,
+            R.id.fragment
+        )
         NavigationUI.setupActionBarWithNavController(this,navController)
 
 
@@ -19,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(
-            Navigation.findNavController(this,R.id.fragment),null
+            Navigation.findNavController(this, R.id.fragment),null
         )
     }
 }
