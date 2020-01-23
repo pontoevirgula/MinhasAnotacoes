@@ -6,8 +6,9 @@ import java.io.Serializable
 
 @Entity
 data class Note(
-    @PrimaryKey(autoGenerate = true)
-    val id : Int,
     val title : String,
     val note : String
-): Serializable
+){
+    @PrimaryKey(autoGenerate = true)
+    var id : Int = 0
+}
