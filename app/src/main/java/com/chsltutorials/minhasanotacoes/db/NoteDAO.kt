@@ -10,11 +10,11 @@ import com.chsltutorials.minhasanotacoes.entity.Note
 interface NoteDAO {
 
     @Insert
-    fun addNote(note : Note)
+    suspend fun addNote(note : Note)
 
     @Query("SELECT * FROM note")
-    fun getAllNotes() : List<Note>
+    suspend fun getAllNotes() : List<Note>
 
     @Insert
-    fun addMultipleNote(vararg note : Note)
+    suspend fun addMultipleNote(vararg note : Note)
 }

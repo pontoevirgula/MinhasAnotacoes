@@ -8,7 +8,7 @@
     <fragment
             android:id="@+id/addNoteFragment"
             android:name="com.chsltutorials.minhasanotacoes.ui.AddNoteFragment"
-            android:label="Add Note"
+            android:label="Adicionar anotação"
             tools:layout="@layout/fragment_add_note">
         <action
                 android:id="@+id/actionSaveNote"
@@ -18,7 +18,7 @@
     <fragment
             android:id="@+id/homeFragment"
             android:name="com.chsltutorials.minhasanotacoes.ui.HomeFragment"
-            android:label="My Home"
+            android:label="Início"
             tools:layout="@layout/fragment_home">
         <action
                 android:id="@+id/actionAddNote"
