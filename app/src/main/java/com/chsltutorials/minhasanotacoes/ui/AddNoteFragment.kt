@@ -1,9 +1,8 @@
 package com.chsltutorials.minhasanotacoes.ui
 
+import android.app.AlertDialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.navigation.Navigation
 import com.chsltutorials.minhasanotacoes.R
 import com.chsltutorials.minhasanotacoes.util.bases.BaseFragment
@@ -22,6 +21,7 @@ class AddNoteFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_add_note, container, false)
     }
 
@@ -66,6 +66,37 @@ class AddNoteFragment : BaseFragment() {
             }
         }
 
+    }
+
+    private fun deleteNote(){
+        AlertDialog.Builder(context).apply {
+            setTitle("Tem certeza?")
+            setMessage("Você não pode desfazer esta operação")
+            setPositiveButton("Sim"){ _,_ ->
+                launch {
+                    NoteDatabase(context).getNoteDao().deleteNote(note!!)
+                    val action =  AddNoteFragmentDirections.actionSaveNote()
+                    Navigation.findNavController(view!!).navigate(action)
+                    context.toast("Anotação excluida")
+                }
+            }
+            setNegativeButton("Não"){ _,_ -> }
+        }.create().show()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.delete -> {
+                if (note != null) deleteNote() else context?.toast("Não é possível deletar")
+            }
+            else -> {}
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu,menu)
     }
 
 
