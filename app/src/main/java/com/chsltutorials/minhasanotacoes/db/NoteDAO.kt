@@ -1,15 +1,13 @@
 package com.chsltutorials.minhasanotacoes.db
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.chsltutorials.minhasanotacoes.entity.Note
 
 
 @Dao
 interface NoteDAO {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addNote(note : Note)
 
     @Query("SELECT * FROM note ORDER BY id DESC")
@@ -17,4 +15,7 @@ interface NoteDAO {
 
     @Insert
     suspend fun addMultipleNote(vararg note : Note)
+
+    @Update
+    suspend fun updateNote(note : Note)
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import com.chsltutorials.minhasanotacoes.R
 import com.chsltutorials.minhasanotacoes.util.bases.BaseFragment
 import com.chsltutorials.minhasanotacoes.db.NoteDatabase
@@ -15,6 +16,8 @@ import kotlinx.coroutines.launch
 
 class AddNoteFragment : BaseFragment() {
 
+    private var note : Note? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,7 +28,13 @@ class AddNoteFragment : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        fabSave.setOnClickListener {
+        arguments?.let {
+            note = AddNoteFragmentArgs.fromBundle(it).note
+            etTitle.setText(note?.title)
+            etNote.setText(note?.note)
+        }
+
+        fabSave.setOnClickListener { view ->
             val noteTitle = etTitle.text.toString().trim()
             val noteBody = etNote.text.toString().trim()
 
@@ -41,10 +50,18 @@ class AddNoteFragment : BaseFragment() {
             }
 
             launch {
-                val note = Note(noteTitle,noteBody)
                 context?.let {
-                    NoteDatabase(it).getNoteDao().addNote(note)
-                    it.toast("Anotação salva")
+                    val mNote = Note(noteTitle,noteBody)
+                    if (note == null){
+                        NoteDatabase(it).getNoteDao().addNote(mNote)
+                        it.toast("Anotação salva")
+                    }else{
+                        mNote.id = note!!.id
+                        NoteDatabase(it).getNoteDao().addNote(mNote)
+                        it.toast("Mudanças salvas")
+                    }
+                    val action = AddNoteFragmentDirections.actionSaveNote()
+                    Navigation.findNavController(view).navigate(action)
                 }
             }
         }

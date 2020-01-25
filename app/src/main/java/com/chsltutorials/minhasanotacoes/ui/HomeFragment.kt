@@ -38,7 +38,7 @@ class HomeFragment : BaseFragment() {
         }
 
         fabAdd.setOnClickListener {
-            val action = R.id.actionAddNote
+            val action = HomeFragmentDirections.actionAddNote()
             Navigation.findNavController(it).navigate(action)
         }
     }
